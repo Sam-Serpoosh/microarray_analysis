@@ -1,4 +1,5 @@
 *.swp
 *.xls
 *.csv
+*.txt
 __pycache__/
