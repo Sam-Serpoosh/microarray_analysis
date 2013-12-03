@@ -17,11 +17,11 @@ def find_discriminant_genes(patients_info_file):
   size = comm.Get_size()
 
   genes_values_chunks = chunk_genes_values_for_scattering(
-          patients_info_file, comm, rank, size)
+      patients_info_file, comm, rank, size)
   genes_d_scores = calculate_all_genes_d_scores(comm, genes_values_chunks)
   if rank == 0:
-      sorted_d_scores = sort_genes_d_scores(genes_d_scores)
-      write_scores_to_file("discriminant_genes.txt", sorted_d_scores)
+    sorted_d_scores = sort_genes_d_scores(genes_d_scores)
+    write_scores_to_file("discriminant_genes.txt", sorted_d_scores)
 
 
 def chunk_genes_values_for_scattering(patients_info_file, comm, rank, size):
@@ -90,17 +90,17 @@ def calculate_d_score(t_stats):
   return score
 
 def sort_genes_d_scores(genes_d_scores):
-    all_d_scores = {}
+  all_d_scores = {}
     for d_scores in genes_d_scores:
       for gene_name, score in d_scores.items():
         all_d_scores[gene_name] = score
 
-    return sorted(all_d_scores.items(), key=lambda x:x[1], reverse=True)
+  return sorted(all_d_scores.items(), key=lambda x:x[1], reverse=True)
 
 def write_scores_to_file(output_file, scores):
-    f = open(output_file, "w")
-    for score in scores:
-      f.write(str(score) + "\n")
-    f.close()
+  f = open(output_file, "w")
+  for score in scores:
+    f.write(str(score) + "\n")
+  f.close()
 
 find_discriminant_genes("NCI-60.csv")
